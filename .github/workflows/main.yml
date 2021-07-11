@@ -1,0 +1,16 @@
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout repository
+
+      - uses: imorty/webimg@v1.0.0
+        name: Build and publish the latest service image
+        with:
+          github-push-secret: ${{ secrets.GITHUB_TOKEN }}
+          docker-image-name: webimg
+          docker-image-tag: latest
+          dockerfile-path: ./deps/Dockerfile
+          build-context: ./deps
